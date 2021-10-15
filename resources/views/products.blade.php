@@ -231,10 +231,6 @@
                         $('.editProduct').find('input[type="file"]').attr(
                             'data-value', '<img src="storage/files/'+data.details.picture+'" class="img-fluid" style="max-width:100px; margin-bottom:10px;">');
                     }
-                    // $('.editProduct').find('.img-holder-update').html(
-                    //     '<img src="storage/files/'+data.details.picture+'" class="img-fluid" style="max-width:100px; margin-bottom:10px;">');
-                    // $('.editProduct').find('input[type="file"]').attr(
-                    //     'data-value', '<img src="storage/files/'+data.details.picture+'" class="img-fluid" style="max-width:100px; margin-bottom:10px;">');
                     $('.editProduct').find('input[name="edit_picture"]').val('');
                     $('#holderLabelEdit').text("Preview");
                     $('.editProduct').find('span.error-text').val('');
@@ -245,7 +241,7 @@
             $(document).on('click', '#clearInputFile', function() {
                 const form = $('.editProduct').find('form');
                 $(form).find('input[name="edit_picture"]').val('');
-                $('#edit_picture').next('label').html('Choose image');
+                $('#edit_picture').next('label').html('Choose image (max size: 1.5 MB)');
                 $(form).find('.img-holder-update').html($(form).find('input[name="edit_picture"]').data('value'));
             })
 
