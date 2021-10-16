@@ -62,6 +62,12 @@
             </div>
         </div>
 
+        @if (session('status'))
+            <div class="mt-3 text-red text-center align-middle">
+                {{ session('status') }}
+            </div>
+        @endif
+
     </form>
 @stop
 
