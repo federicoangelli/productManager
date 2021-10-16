@@ -82,12 +82,13 @@ class ProductController extends Controller
     {
 
         $validator = Validator::make($request->all(),[
-            'picture'=>'mimes:jpeg,jpg,png,bmp,tiff |max:1500',
+            'name'=>'required',
+            'picture'=>'mimes:jpeg,jpg,png,bmp,tiff |max:1000',
             'price'=>'required|numeric',
             'status'=>'required',
         ],[
             'picture.mimes'=>'Product image must be a jpg, jpeg, png, bmp or tiff file.',
-            'picture.max'=>'Product image too big, maximum size allowed: 1.5 MB',
+            'picture.max'=>'Product image too big, maximum size allowed: 1 MB',
         ]);
 
         if (!$validator->passes()) {
@@ -133,12 +134,12 @@ class ProductController extends Controller
 
         $validator = Validator::make($request->all(),[
             'name'=>'required',
-            'edit_picture'=>'mimes:jpeg,jpg,png,bmp,tiff |max:1500',
+            'edit_picture'=>'mimes:jpeg,jpg,png,bmp,tiff |max:1000',
             'price'=>'required|numeric',
             'status'=>'required',
         ],[
             'edit_picture.mimes'=>'Product image must be a jpg, jpeg, png, bmp or tiff file.',
-            'edit_picture.max'=>'Product image too big, maximum size allowed: 1.5 MB',
+            'edit_picture.max'=>'Product image too big, maximum size allowed: 1 MB',
         ]);
 
         if (!$validator->passes()) {

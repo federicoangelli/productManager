@@ -34,7 +34,10 @@
                         <div class="input-group">
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" name="picture" id="picture">
-                                <label class="custom-file-label" for="picture">Choose image (max size: 1.5 MB)</label>
+                                <label class="custom-file-label" for="picture">Choose image (max size: 1 MB)</label>
+                            </div>
+                            <div class="input-group-append">
+                                <span id="clearInputFileAdd" class="input-group-text">Clear</span>
                             </div>
                         </div>
                         <span class="text-danger error-text picture_error"></span>
@@ -42,7 +45,7 @@
                     <label id="holderLabelAdd"></label>
                     <div id="holderAdd" class="img-holder"></div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-block btn-success">Save Product</button>
+                        <button type="submit" id="submitSave" class="btn btn-block btn-success">Save Product</button>
                     </div>
                 </form>
             </div>

@@ -141,6 +141,17 @@
                 $('.saveProduct').modal('show');
             });
 
+            //CLEAR BUTTON ADD
+            $(document).on('click', '#clearInputFileAdd', function() {
+                const form = $('.saveProduct').find('form');
+                $(form).find('#submitSave').prop('disabled', false);
+                $(form).find('span.error-text').text('');
+                $(form).find('input[name="picture"]').val('');
+                $('#picture').next('label').html('Choose image (max size: 1 MB)');
+                $('#holderLabelAdd').text('');
+                $(form).find('.img-holder').hide();
+            })
+
             //ADD
             $('#save-product-form').on('submit', function(e) {
                 e.preventDefault();
@@ -180,24 +191,40 @@
             $('input[type="file"][id="picture"]').val('');
             //Image preview
             $('input[type="file"][id="picture"]').on('change', function() {
-                const img_path = $(this)[0].value;
-                const img_holder = $('.img-holder');
-                const extension = img_path.substring(img_path.lastIndexOf('.') + 1).toLowerCase();
-                if(extension === 'jpeg' || extension === 'jpg' || extension === 'png') {
-                    if (typeof(FileReader) != 'undefined') {
-                        img_holder.empty();
-                        const reader = new FileReader();
-                        reader.onload = function(e){
-                            $('#holderLabelAdd').text("Preview");
-                            $('<img/>',{'src':e.target.result,'class':'img-fluid','style':'max-width:100px;margin-bottom:10px;'}).appendTo(img_holder);
+                //Check image size, max 1 MB allowed, else error message span
+                const form = $('.saveProduct').find('form');
+                $(form).find('#submitSave').prop('disabled', false);
+                $(form).find('span.error-text').text('');
+                if (this.files[0].size >= 1000000) {
+                    $(form).find('span.'+'picture'+'_error').text('Product image too big, maximum size allowed: 1 MB');
+                    $(form).find('#submitSave').prop('disabled', true);
+                    $('#holderLabelAdd').text('');
+                    $(form).find('.img-holder').hide();
+                }
+                else {
+                    const img_path = $(this)[0].value;
+                    const img_holder = $('.img-holder');
+                    const extension = img_path.substring(img_path.lastIndexOf('.') + 1).toLowerCase();
+                    if (extension === 'jpeg' || extension === 'jpg' || extension === 'png') {
+                        if (typeof (FileReader) != 'undefined') {
+                            img_holder.empty();
+                            const reader = new FileReader();
+                            reader.onload = function (e) {
+                                $('#holderLabelAdd').text("Preview");
+                                $('<img/>', {
+                                    'src': e.target.result,
+                                    'class': 'img-fluid',
+                                    'style': 'max-width:100px;margin-bottom:10px;'
+                                }).appendTo(img_holder);
+                            }
+                            img_holder.show();
+                            reader.readAsDataURL($(this)[0].files[0]);
+                        } else {
+                            $(img_holder).html('This browser does not support FileReader');
                         }
-                        img_holder.show();
-                        reader.readAsDataURL($(this)[0].files[0]);
-                    }else {
-                        $(img_holder).html('This browser does not support FileReader');
+                    } else {
+                        $(img_holder).empty();
                     }
-                }else {
-                    $(img_holder).empty();
                 }
             });
 
@@ -238,10 +265,13 @@
                 }, 'json');
             });
 
+            //CLEAR BUTTON EDIT
             $(document).on('click', '#clearInputFile', function() {
                 const form = $('.editProduct').find('form');
+                $(form).find('#submitEdit').prop('disabled', false);
+                $(form).find('span.error-text').text('');
                 $(form).find('input[name="edit_picture"]').val('');
-                $('#edit_picture').next('label').html('Choose image (max size: 1.5 MB)');
+                $('#edit_picture').next('label').html('Choose image (max size: 1 MB)');
                 $(form).find('.img-holder-update').html($(form).find('input[name="edit_picture"]').data('value'));
             })
 
@@ -284,24 +314,38 @@
             $('input[type="file"][id="edit_picture"]').val('');
             //Image preview
             $('input[type="file"][id="edit_picture"]').on('change', function() {
-                const img_path = $(this)[0].value;
-                const img_holder = $('.img-holder-update');
-                const extension = img_path.substring(img_path.lastIndexOf('.') + 1).toLowerCase();
-                if(extension === 'jpeg' || extension === 'jpg' || extension === 'png') {
-                    if(typeof(FileReader) != 'undefined') {
-                        img_holder.empty();
-                        const reader = new FileReader();
-                        reader.onload = function(e) {
-                            $('#holderLabelEdit').text("Preview");
-                            $('<img/>',{'src':e.target.result,'class':'img-fluid','style':'max-width:200px;margin-bottom:10px;'}).appendTo(img_holder);
+                //Check image size, max 1 MB allowed, else error message span
+                const form = $('.editProduct').find('form');
+                $(form).find('#submitEdit').prop('disabled', false);
+                $(form).find('span.error-text').text('');
+                if (this.files[0].size >= 1000000) {
+                    $(form).find('span.'+'edit_picture'+'_error').text('Product image too big, maximum size allowed: 1 MB');
+                    $(form).find('#submitEdit').prop('disabled', true);
+                }
+                else {
+                    const img_path = $(this)[0].value;
+                    const img_holder = $('.img-holder-update');
+                    const extension = img_path.substring(img_path.lastIndexOf('.') + 1).toLowerCase();
+                    if (extension === 'jpeg' || extension === 'jpg' || extension === 'png') {
+                        if (typeof (FileReader) != 'undefined') {
+                            img_holder.empty();
+                            const reader = new FileReader();
+                            reader.onload = function (e) {
+                                $('#holderLabelEdit').text("Preview");
+                                $('<img/>', {
+                                    'src': e.target.result,
+                                    'class': 'img-fluid',
+                                    'style': 'max-width:200px;margin-bottom:10px;'
+                                }).appendTo(img_holder);
+                            }
+                            img_holder.show();
+                            reader.readAsDataURL($(this)[0].files[0]);
+                        } else {
+                            $(img_holder).html('This browser does not support FileReader');
                         }
-                        img_holder.show();
-                        reader.readAsDataURL($(this)[0].files[0]);
-                    }else {
-                        $(img_holder).html('This browser does not support FileReader');
+                    } else {
+                        $(img_holder).empty();
                     }
-                }else {
-                    $(img_holder).empty();
                 }
             });
 
