@@ -64,3 +64,10 @@
 
     </form>
 @stop
+
+@section('auth_footer')
+    <p class="text-red">Notice:</p>
+    <p class="text-red">Only signed-in users may create new accounts. For test purposes, you can sign in using the following credentials:</p>
+    <p class="text-red text-bold">Email: admin@gmail.com</p>
+    <p class="text-red text-bold">Password: admin</p>
+@stop
