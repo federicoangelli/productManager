@@ -83,7 +83,7 @@
 
     </form>
 
-    <a href="javascript:history.back()">
+    <a href="{{ route('dashboard') }}">
         <button class="btn btn-block {{ config('adminlte.classes_btn_auth_btn', 'btn-flat btn-danger') }}">
             <span class="fas fa-window-close mr-1"></span>
             {{ __('Cancel') }}
