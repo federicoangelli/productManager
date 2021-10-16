@@ -321,6 +321,8 @@
                 if (this.files[0].size >= 1000000) {
                     $(form).find('span.'+'edit_picture'+'_error').text('Product image too big, maximum size allowed: 1 MB');
                     $(form).find('#submitEdit').prop('disabled', true);
+                    $('#holderLabelEdit').text('');
+                    $(form).find('.img-holder-update').hide();
                 }
                 else {
                     const img_path = $(this)[0].value;
@@ -335,7 +337,7 @@
                                 $('<img/>', {
                                     'src': e.target.result,
                                     'class': 'img-fluid',
-                                    'style': 'max-width:200px;margin-bottom:10px;'
+                                    'style': 'max-width:100px;margin-bottom:10px;'
                                 }).appendTo(img_holder);
                             }
                             img_holder.show();
