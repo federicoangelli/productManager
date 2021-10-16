@@ -195,6 +195,7 @@
                 const form = $('.saveProduct').find('form');
                 $(form).find('#submitSave').prop('disabled', false);
                 $(form).find('span.error-text').text('');
+                $(form).find('.img-holder').show();
                 if (this.files[0].size >= 1000000) {
                     $(form).find('span.'+'picture'+'_error').text('Product image too big, maximum size allowed: 1 MB');
                     $(form).find('#submitSave').prop('disabled', true);
@@ -235,6 +236,7 @@
                 $('.editProduct').find('span.error-text').text('');
                 const img_holder = $('.img-holder-update');
                 $(img_holder).empty();
+                $(img_holder).show();
                 $('#holderLabelEdit').text("");
                 $.post('<?= route("get.product.details") ?>', {product_id:product_id}, function(data) {
                     $('.editProduct').find('input[name="pid"]').val(data.details.id);
@@ -272,7 +274,8 @@
                 $(form).find('span.error-text').text('');
                 $(form).find('input[name="edit_picture"]').val('');
                 $('#edit_picture').next('label').html('Choose image (max size: 1 MB)');
-                $(form).find('.img-holder-update').html($(form).find('input[name="edit_picture"]').data('value'));
+                $('#holderLabelEdit').text('');
+                $(form).find('.img-holder-update').hide();
             })
 
         //UPDATE
@@ -318,6 +321,7 @@
                 const form = $('.editProduct').find('form');
                 $(form).find('#submitEdit').prop('disabled', false);
                 $(form).find('span.error-text').text('');
+                $(form).find('.img-holder-update').show();
                 if (this.files[0].size >= 1000000) {
                     $(form).find('span.'+'edit_picture'+'_error').text('Product image too big, maximum size allowed: 1 MB');
                     $(form).find('#submitEdit').prop('disabled', true);
